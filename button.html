@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>React Counter</title>
+  </head>
+  <body>
+    <div class="root"></div>
+
+    <!-- <script type="text/babel">
+      const container = document.querySelector(".root");
+      const root = ReactDOM.createRoot(container);
+
+      function Counter() {
+        const [count, setCount] = React.useState(0);
+
+        return (
+          <div>
+            <div>
+              <h1>Counter App</h1>
+              <button onClick={() => setCount(count - 1)}>-</button> &nbsp;
+              <p>{count}</p>
+              <button onClick={() => setCount(count + 1)}>+</button>
+            </div>
+            <br />
+            <div>
+              <button onClick={() => setCount(0)}>Reset!</button>
+            </div>
+          </div>
+        );
+      }
+
+      root.render(<Counter />);
+    </script> -->
+
+    <script type="text/babel">
+      const container = document.querySelector(".root");
+      const root = ReactDOM.createRoot(container);
+
+      function Counter() {
+        const [count, setCount] = React.useState(0);
+        const isMax = count >= 10;
+        const isMin = count <= -10;
+        const isZero = count === 0;
+
+        function handleClickUp() {
+          if (count >= 10) return;
+          setCount(count + 1);
+        }
+
+        function handleClickDown() {
+          if (count <= -10) return;
+          setCount(count - 1);
+        }
+
+        function handleReset() {
+          setCount(0);
+        }
+
+        return (
+          <>
+            <button onClick={handleClickUp} disabled={isMax}>
+              +
+            </button>
+            <p>{count}</p>
+            <button onClick={handleClickDown} disabled={isMin}>
+              -
+            </button>
+
+            <br />
+            <br />
+
+            <button onClick={handleReset} disabled={isZero}>
+              Reset!
+            </button>
+          </>
+        );
+      }
+
+      root.render(<Counter />);
+    </script>
+  </body>
+</html>

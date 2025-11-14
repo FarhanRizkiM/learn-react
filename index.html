@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Learn React JS</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div class="root"></div>
+
+    <script type="text/babel">
+      const container = document.querySelector(".root");
+      const root = ReactDOM.createRoot(container);
+
+      function Header({ name }) {
+        return <h1>Welcome to React JS {name ? name : "Farhan"}</h1>;
+      }
+
+      function HomePage() {
+        const students = ["Farhan", "Rizki", "Maulana"];
+        const [likes, setLikes] = React.useState(0);
+
+        function handleClick() {
+          console.log("Button clicked!");
+          setLikes(likes + 1);
+        }
+
+        return (
+          <>
+            <Header name="Rizki" />
+            <p>This is the home page of our React application.</p>
+            <ul>
+              {students.map((student) => (
+                <li key={student}>{student}</li>
+              ))}
+            </ul>
+            <button onClick={handleClick}>Like {likes}</button>
+          </>
+        );
+      }
+
+      root.render(<HomePage />);
+    </script>
+  </body>
+</html>

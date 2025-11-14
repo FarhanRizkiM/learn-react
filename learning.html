@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Latihan React</title>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div class="root"></div>
+
+    <script type="text/babel">
+      const container = document.querySelector(".root");
+      const root = ReactDOM.createRoot(container);
+      const authors = ["Farhan", "Rizki", "Maulana"];
+      const cities = ["Jakarta", "Bandung", "Surabaya"];
+      const animals = ["Kucing", "Anjing", "Kelinci"];
+
+      function Header() {
+        return <h1>Belajar React</h1>;
+      }
+
+      function Footer() {
+        return <p>Copyright 2024</p>;
+      }
+
+      function Author({ name }) {
+        return <h3>Hello, My Name is {name}</h3>;
+      }
+
+      function Foods({ food }) {
+        return <h4> Saya ingin makan {food ? food : "Nasi Goreng"}</h4>;
+      }
+
+      function Card({ title, desc }) {
+        return (
+          <div>
+            <h4>{title}</h4>
+            <p>{desc}</p>
+          </div>
+        );
+      }
+
+      function StudentList({ items }) {
+        return (
+          <ul>
+            {items.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        );
+      }
+
+      function HomePage() {
+        const [count, setCount] = React.useState(0);
+        const [down, setDown] = React.useState(0);
+        const [animalList, setAnimalList] = React.useState(animals);
+
+        function handleClickUp() {
+          console.log("Button clicked!");
+          setCount(count + 1);
+        }
+
+        function handleClickDown() {
+          console.log("Button clicked!");
+          setDown(down - 1);
+        }
+
+        function addAnimal() {
+          const updatedAnimals = [...animalList, "Baru"];
+          console.log(updatedAnimals);
+          setAnimalList(updatedAnimals);
+        }
+
+        return (
+          <>
+            <Header />
+            <Footer />
+            <Author name="Farhan" />
+            <Author name="Rizki" />
+            <Author name="Maulana" />
+            <Foods food="Sate Ayam" />
+            <Card
+              title="Card Title Example"
+              desc="This is a description of the card."
+            />
+            <ul>
+              {authors.map((author) => (
+                <li key={author}>{author}</li>
+              ))}
+            </ul>
+            <ol>
+              {cities.map((city) => (
+                <li key={city}>{city}</li>
+              ))}
+            </ol>
+            <ul>
+              {animalList.map((animal, index) => (
+                <li key={animal + index}>{animal}</li>
+              ))}
+            </ul>
+            <StudentList items={["A", "B", "C"]} />
+            <button onClick={handleClickUp}>Clik Up {count}</button> &nbsp;
+            <button onClick={handleClickDown}>Clik Down {down}</button> &nbsp;
+            <button onClick={addAnimal}>Tambah Hewan</button>
+          </>
+        );
+      }
+
+      root.render(<HomePage />);
+    </script>
+  </body>
+</html>
