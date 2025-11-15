@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Pemeriksan Ganjil & Genap</title>
+    <style>
+      .checker-number {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        font-family: Arial, sans-serif;
+      }
+
+      .checker-number form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .checker-number label {
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+
+      .checker-number input[type="number"] {
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+      }
+
+      .checker-number input[type="submit"] {
+        padding: 10px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .checker-number input[type="submit"]:hover {
+        background-color: #218838;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="root"></div>
+
+    <script type="text/babel">
+      const container = document.querySelector(".root");
+      const root = ReactDOM.createRoot(container);
+
+      function CheckerNumber() {
+        const [number, setNumber] = React.useState("");
+        const [result, setResult] = React.useState("");
+
+        function handleSubmit(e) {
+          e.preventDefault();
+
+          if (number === "") {
+            setResult("Please enter a number");
+            return;
+          }
+
+          if (number % 2 === 0) {
+            setResult(`${number} adalah bilangan Genap`);
+          } else {
+            setResult(`${number} adalah bilangan Ganjil`);
+          }
+
+          setNumber("");
+        }
+
+        return (
+          <>
+            <div className="checker-number">
+              <form onSubmit={handleSubmit}>
+                <label>Even & Odd Checker</label>
+
+                <input
+                  type="number"
+                  value={number}
+                  onChange={(e) => setNumber(e.target.value)}
+                  id="checker"
+                  name="Checker"
+                />
+                <input type="submit" value="Check!" />
+              </form>
+
+              <p>{result}</p>
+            </div>
+          </>
+        );
+      }
+
+      root.render(<CheckerNumber />);
+    </script>
+  </body>
+</html>

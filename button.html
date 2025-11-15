@@ -7,6 +7,26 @@
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <title>React Counter</title>
+    <style>
+      .counter-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px; /* jarak antar elemen */
+        padding: 20px;
+      }
+      .button-reset {
+        display: block;
+        margin: 0 auto;
+        padding: 10px 20px;
+        font-size: 16px;
+      }
+      .counter-row p {
+        margin: 0;
+        font-size: 22px;
+        font-weight: bold;
+      }
+    </style>
   </head>
   <body>
     <div class="root"></div>
@@ -63,18 +83,20 @@
 
         return (
           <>
-            <button onClick={handleClickUp} disabled={isMax}>
-              +
-            </button>
-            <p>{count}</p>
-            <button onClick={handleClickDown} disabled={isMin}>
-              -
-            </button>
-
-            <br />
-            <br />
-
-            <button onClick={handleReset} disabled={isZero}>
+            <div className="counter-row">
+              <button onClick={handleClickDown} disabled={isMin}>
+                -
+              </button>
+              <p>{count}</p>
+              <button onClick={handleClickUp} disabled={isMax}>
+                +
+              </button>
+            </div>
+            <button
+              className="button-reset"
+              onClick={handleReset}
+              disabled={isZero}
+            >
               Reset!
             </button>
           </>
