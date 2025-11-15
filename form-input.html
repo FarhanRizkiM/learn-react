@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Input Profile</title>
+    <style>
+      .root {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        font-family: Arial, sans-serif;
+      }
+      .root h2 {
+        text-align: center;
+      }
+      .root form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      .root label {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      .root input[type="text"],
+      .root input[type="number"],
+      .root input[type="email"] {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+      }
+      .root input[type="submit"] {
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      .root input[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+      .root table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      .root table,
+      th,
+      td {
+        border: 1px solid #ccc;
+      }
+      .root th,
+      td {
+        padding: 10px;
+        text-align: left;
+      }
+      .root th {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="root"></div>
+
+    <script type="text/babel">
+      const container = document.querySelector(".root");
+      const root = ReactDOM.createRoot(container);
+
+      function PersonalDataForm() {
+        const [name, setName] = React.useState("");
+        const [age, setAge] = React.useState("");
+        const [email, setEmail] = React.useState("");
+        const [dataList, setDataList] = React.useState([]);
+
+        function handleSubmit(e) {
+          e.preventDefault();
+
+          if (!name || !age || !email) {
+            alert("Please fill in all fields.");
+            return;
+          }
+
+          const newData = { name, age, email };
+
+          setDataList([...dataList, newData]);
+
+          setName("");
+          setAge("");
+          setEmail("");
+
+          alert("Data saved successfully!");
+        }
+
+        return (
+          <div className="container">
+            <h2>Personal Data Form</h2>
+
+            <form onSubmit={handleSubmit}>
+              <div>
+                <label>Nama</label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Masukan nama anda"
+                />
+              </div>
+              <div>
+                <label>Umur</label>
+                <input
+                  type="number"
+                  value={age}
+                  onChange={(e) => setAge(e.target.value)}
+                  placeholder="Masukan umur anda"
+                />
+              </div>
+              <div>
+                <label>Email</label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Masukkan email anda"
+                />
+              </div>
+
+              <input type="submit" value="Simpan" />
+            </form>
+
+            {dataList.length === 0 ? (
+              <p>Belum ada data tersimpan.</p>
+            ) : (
+              <table>
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Umur</th>
+                    <th>Email</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dataList.map((item, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{item.name}</td>
+                      <td>{item.age}</td>
+                      <td>{item.email}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        );
+      }
+
+      root.render(<PersonalDataForm />);
+    </script>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </body>
+</html>
